@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    
+
+    <title>ISTA HAY SALAM</title>
+    <link rel="shortcut icon" href="logo_ofppt.ico" />
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="demandeReleveNotes/css/Formulaire.css" />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <v-row justify="center">
+              <v-col cols="8">
+                <div >
+                  <v-row>
+                    <v-col clos="3">
+                      <img src="img/offppt.PNG" class="image" width="766px" height="195px" alt="img" />
+                    </v-col>
+                    <v-col clos="9">
+                      <h2 id="h1"><br>Demande de relevé de notes<br><br></h2 ></v-col>
+                  </v-row>
+                </div>
+                <div>
+                  <v-stepper v-model="e1">
+                    <v-stepper-header>
+                      <v-stepper-step :complete="e1 > 1" step="1"
+                        >Renseignements personnels</v-stepper-step
+                      >
+                      <v-divider></v-divider>
+                      <v-stepper-step step="2" :complete="isOkay"
+                        >Demande de relevé de notes</v-stepper-step
+                      >
+                    </v-stepper-header>
+                    <v-stepper-items>
+                      <v-stepper-content step="1">
+                        <!-- Start Form info -->
+                        <v-form ref="form1" v-model="valid" lazy-validation>
+                          <!-- Start Fields -->
+                          <v-text-field
+                            v-model="demandeur.nom"
+                            :rules="[isRequir, alphaSpace]"
+                            label="Nom Stagiaire"
+                            required
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="demandeur.prenom"
+                            :rules="[isRequir, alphaSpace]"
+                            label="Prénom Stagiaire"
+                            required
+                          ></v-text-field>
+                          <!-- Start Date -->
+                          <v-menu
+                            ref="menu"
+                            v-model="menu"
+                            :close-on-content-click="false"
+                            transition="scale-transition"
+                            offset-y
+                            min-width="290px"
+                          >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field
+                                v-model="demandeur.dateNaissance"
+                                :rules="[isRequir]"
+                                label="Date de naissance"
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                              ></v-text-field>
+                            </template>
+                            <v-date-picker
+                              ref="picker"
+                              v-model="demandeur.dateNaissance"
+                              :max="new Date().toISOString().substr(0, 10)"
+                              
+                              min="1990-01-01"
+                              @change="save"
+                            ></v-date-picker>
+                          </v-menu>
+                          <!-- End Date -->
+                          <v-text-field
+                            v-model="demandeur.email"
+                            :rules="[isRequir,isEmail]"
+                            label="Email"
+                            required
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="demandeur.cin"
+                            :rules="[isRequir, isId]"
+                            label="CIN"
+                            required
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="demandeur.adresse"
+                            :rules="[isRequir]"
+                            label="Addresse"
+                            required
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="demandeur.telephone"
+                            :rules="[isRequir, isPhone]"
+                            label="N° de téléphone"
+                            required
+                          ></v-text-field>
+
+                          <!--v-radio-group
+                            v-model="demandeur.identiteDemandeur"
+                            :rules="[isRequir]"
+                            row
+                            label="Identification du demandeur"
+                          >
+                            <v-radio
+                              label="Lui-même"
+                              value="lui-meme"
+                            ></v-radio>
+                            <v-radio label="Le tuteur" value="tuteur"></v-radio>
+                          </!--v-radio-group>
+                          <!-- End Fields -->
+                          <br>
+                        </v-form>
+                        <!-- End Form info -->
+                        <!-- <v-btn color="primary" href="index.html">
+                          Retour
+                        </v-btn> -->
+                        <v-btn color="primary" @click="validate" style="float: right;">
+                          Continue
+                        </v-btn>
+                        
+                      </v-stepper-content>
+                      <v-stepper-content step="2">
+                        <!-- Start Form Demande -->
+                        <v-form ref="form2" v-model="valid2" lazy-validation>
+                          <!-- Start Fields -->
+                          <v-radio-group
+                          v-model="releve.niveau"
+                          :rules="[isRequir,cantRequestOrNot]"
+                          row
+                          label="Niveaur"
+                        >
+                          <v-radio label="1A" value="1A"></v-radio>
+                          <v-radio label="2A" value="2A"></v-radio>
+                          <v-radio label="3A (cours du soir)" value="3A"></v-radio>
+                        </v-radio-group>
+                          <v-text-field
+                          v-model="releve.anne"
+                          :rules="[isRequir, isYear, isRightYear, cantRequestOrNot]"
+                          label="Année de formation"
+                          required
+                        ></v-text-field>
+                          <v-text-field
+                            v-model="releve.filiere"
+                            :rules="[isRequir, alphaSpace]"
+                            label="Filière"
+                            required
+                          ></v-text-field>
+                          <v-text-field
+                            v-model="releve.groupe"
+                            :rules="[isRequir]"
+                            label="Groupe"
+                            required
+                          ></v-text-field>
+                          <v-radio-group
+                            v-model="releve.estAnneeComplete"
+                            :rules="[isRequir]"
+                            row
+                            label="Année complétée"
+                          >
+                            <v-radio label="Oui" value="oui"></v-radio>
+                            <v-radio label="Non" value="non"></v-radio>
+                          </v-radio-group>
+                          <v-btn
+                            :disabled="liste_releves.length > 3"
+                            color="success"
+                            class="mr-4 mt-6 mb-6"
+                            @click="addRow"
+                          >
+                            Ajouter
+                          </v-btn>
+                        </v-form>
+                        <!-- End Form Demande -->
+
+                        <!-- Start Data Tables -->
+                        <v-data-table
+                          hide-default-footer
+                          :headers="headers"
+                          :items="liste_releves"
+                          sort-by="calories"
+                          class="elevation-1"
+                        >
+                          <template v-slot:item.actions="{ item }">
+                            <v-icon small @click="deleteItem(item)">
+                              mdi-delete
+                            </v-icon>
+                          </template>
+                        </v-data-table>
+                        <!-- End Data tables -->
+                        <div class="my-2">
+                          <v-btn
+                            :disabled="liste_releves.length == 0"
+                            color="primary"
+                            small
+                            @click="sendRequest"
+                            class="mr-4 mt-6 mb-6"
+                            >Demander</v-btn
+                          >
+                        </div>
+                      </v-stepper-content>
+                    </v-stepper-items>
+                  </v-stepper>
+                </div>
+              </v-col>
+            </v-row>
+            <v-overlay
+            v-if="rep == true"
+              absolute="fixed"
+              color="rgba(0, 0, 0, 0.8)"
+              opacity="1"
+              value="true"
+              z-index="99999"
+            >
+              <v-alert :type="type">{{theMessage}}</v-alert>
+              </v-alert>
+            </v-overlay>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="demandeReleveNotes/js/scriptFormulaire.js"></script>
+  </body>
+</html>

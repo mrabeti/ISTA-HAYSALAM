@@ -1,0 +1,22 @@
+[06-Jul-2020 11:38:22 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[06-Jul-2020 11:38:24 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[06-Jul-2020 11:41:50 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[06-Jul-2020 11:42:27 UTC] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[06-Jul-2020 11:42:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function email() in /home/nticrabc/public_html/demandeReleveNotes/Script.php:40
+Stack trace:
+#0 {main}
+  thrown in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 40
+[06-Jul-2020 11:42:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function email() in /home/nticrabc/public_html/demandeReleveNotes/Script.php:40
+Stack trace:
+#0 {main}
+  thrown in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 40
+[06-Jul-2020 11:44:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function email() in /home/nticrabc/public_html/demandeReleveNotes/Script.php:40
+Stack trace:
+#0 {main}
+  thrown in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 40
+[03-Nov-2020 11:42:36 UTC] PHP Notice:  Undefined index: liste_releves in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[03-Nov-2020 11:42:36 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[03-Nov-2020 12:01:51 UTC] PHP Notice:  Undefined index: liste_releves in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[03-Nov-2020 12:01:51 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[03-Nov-2020 12:49:47 UTC] PHP Notice:  Undefined index: liste_releves in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
+[03-Nov-2020 12:49:47 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/nticrabc/public_html/demandeReleveNotes/Script.php on line 42
